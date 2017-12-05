@@ -143,7 +143,7 @@ function seed(model, count, forceAppend, callback) {
   if(forceAppend) return _seed(model, count, callback);
   model.count(function(error, total) {
     if(error) return callback(error);
-    var remainder = Math.max(0, total - count);
+    var remainder = Math.max(0, count - total );
     if(!remainder) return callback(null);
     _seed(model, remainder, callback);
   });
@@ -166,6 +166,7 @@ function makeJsonDocument(model) {
     doc[path] = typeof value === 'function'
       ? value()
       : value;
+    return doc;
   }, {});
 }
 
